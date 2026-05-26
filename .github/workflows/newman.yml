@@ -1,4 +1,4 @@
-name: Newman Contract Tests
+name: Contract and Newman Tests — Access Gate
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  newman:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,21 +18,43 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Start Prism mock server
+      - name: Lint OpenAPI contracts
+        run: npx @stoplight/spectral-cli lint contracts/access-gate.openapi.yaml
+
+      - name: Start Prism mock server (Access Gate)
+        run: nohup npm run mock:gate > prism-gate.log 2>&1 &
+
+      - name: Start Prism mock server (Core Business)
+        run: nohup npm run mock:core > prism-core.log 2>&1 &
+
+      - name: Wait for mock servers
         run: |
-          nohup npm run mock:iot > prism.log 2>&1 &
           sleep 5
-          cat prism.log
+          npx wait-on tcp:4010 tcp:4011 --timeout 60000
 
-      - name: Run Newman contract tests
+      - name: Run Newman on mock environment
         run: npm run test:mock
 
-      - name: Upload Newman report
+      - name: Generate HTML report
+        if: always()
+        run: npm run test:html || true
+
+      - name: Show Prism logs on failure
+        if: failure()
+        run: |
+          echo "=== Access Gate mock log ==="
+          cat prism-gate.log || true
+          echo "=== Core Business mock log ==="
+          cat prism-core.log || true
+
+      - name: Upload Newman reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: newman-report
+          name: newman-reports
           path: reports/

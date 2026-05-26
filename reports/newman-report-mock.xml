@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="FIT4110 Lab03 — Access Gate" tests="13" time="0.127">
+  <testsuite name="01_Functional / TC01 — Health check" id="1e171572-ce12-4f4e-9aff-344f848edc33" timestamp="2026-05-19T09:10:43.355Z" tests="2" failures="0" errors="0" time="0.038">
+    <testcase name="Status code is 200" time="0.038" classname="01FunctionalTc01HealthCheck"/>
+    <testcase name="Response has status=ok" time="0.038" classname="01FunctionalTc01HealthCheck"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC02 — Create access event (happy path — allowed)" id="0790e45f-c5ea-4d9f-9988-a6fefc74aec3" timestamp="2026-05-19T09:10:43.355Z" tests="4" failures="0" errors="0" time="0.007">
+    <testcase name="Status code is 201" time="0.007" classname="01FunctionalTc02CreateAccessEventHappyPathAllowed"/>
+    <testcase name="Response has event_id" time="0.007" classname="01FunctionalTc02CreateAccessEventHappyPathAllowed"/>
+    <testcase name="Response has correct direction" time="0.007" classname="01FunctionalTc02CreateAccessEventHappyPathAllowed"/>
+    <testcase name="Response has result field" time="0.007" classname="01FunctionalTc02CreateAccessEventHappyPathAllowed"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC03 — Get access events list" id="5cca6541-aa17-42c7-8db4-3147c9d1419f" timestamp="2026-05-19T09:10:43.355Z" tests="3" failures="0" errors="0" time="0.006">
+    <testcase name="Status code is 200" time="0.006" classname="01FunctionalTc03GetAccessEventsList"/>
+    <testcase name="Response has items array" time="0.006" classname="01FunctionalTc03GetAccessEventsList"/>
+    <testcase name="Response has total count" time="0.006" classname="01FunctionalTc03GetAccessEventsList"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC04 — Get card by ID" id="5e65514c-e1c3-40aa-a51a-46aff6c7a93d" timestamp="2026-05-19T09:10:43.355Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Status code is 200" time="0.006" classname="01FunctionalTc04GetCardById"/>
+    <testcase name="Response has card_id and holder_name" time="0.006" classname="01FunctionalTc04GetCardById"/>
+  </testsuite>
+  <testsuite name="02_Auth / TC05 — Missing token returns 401" id="5dbcff40-69f1-49dd-b12b-1b137ded857a" timestamp="2026-05-19T09:10:43.355Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Missing token returns 401 or 403" time="0.006" classname="02AuthTc05MissingTokenReturns401"/>
+    <testcase name="Error follows ProblemDetails" time="0.006" classname="02AuthTc05MissingTokenReturns401"/>
+  </testsuite>
+  <testsuite name="02_Auth / TC06 — Invalid token returns 401" id="75449cdf-f498-4022-8c7c-f3374426e00c" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.009">
+    <testcase name="Mock does not validate token — expected 201 on mock" time="0.009" classname="02AuthTc06InvalidTokenReturns401"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC07 — Missing card_id returns 400" id="a9d09c9a-02ac-4ce9-a71b-66ff9eb1c1ed" timestamp="2026-05-19T09:10:43.355Z" tests="2" failures="0" errors="0" time="0.007">
+    <testcase name="Missing card_id returns client error" time="0.007" classname="03NegativeTc07MissingCardIdReturns400"/>
+    <testcase name="Error follows ProblemDetails" time="0.007" classname="03NegativeTc07MissingCardIdReturns400"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC08 — Invalid direction returns 400" id="4fae29c1-e381-46d7-9cf2-1599e3716285" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="Invalid direction returns client error" time="0.008" classname="03NegativeTc08InvalidDirectionReturns400"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC09 — Card not found returns 404" id="39b55558-23cb-49d0-9e77-b78137a2aab0" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="Mock returns 200 for any card path param — expected on mock" time="0.008" classname="03NegativeTc09CardNotFoundReturns404"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / TC10 — Empty card_id boundary" id="5c5aa400-ed09-4a71-a695-926a8cb9f9d7" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.005">
+    <testcase name="Empty card_id is rejected or handled" time="0.005" classname="04BoundaryReliabilityTc10EmptyCardIdBoundary"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / TC11 — Pagination limit boundary" id="71d15ded-efb5-4d02-9fec-c3c35e577178" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.005">
+    <testcase name="Limit exceeding max is handled" time="0.005" classname="04BoundaryReliabilityTc11PaginationLimitBoundary"/>
+  </testsuite>
+  <testsuite name="05_Consumer_side_Smoke / TC12 — Smoke test Core Business mock (check policy)" id="7444cebe-0925-4ddd-8435-20a7dcb1ceb0" timestamp="2026-05-19T09:10:43.355Z" tests="2" failures="0" errors="0" time="0.012">
+    <testcase name="Core Business mock responds" time="0.012" classname="05ConsumerSideSmokeTc12SmokeTestCoreBusinessMockCheckPolicy"/>
+    <testcase name="Response has allow/deny decision" time="0.012" classname="05ConsumerSideSmokeTc12SmokeTestCoreBusinessMockCheckPolicy"/>
+  </testsuite>
+  <testsuite name="06_Local_only_NonFunctional / TC13 — Response time under 1000ms" id="8c6e61b9-c7ea-4d8c-9904-5b6fdaf9922b" timestamp="2026-05-19T09:10:43.355Z" tests="1" failures="0" errors="0" time="0.010">
+    <testcase name="Skip latency test on mock (not meaningful)" time="0.010" classname="06LocalOnlyNonFunctionalTc13ResponseTimeUnder1000Ms"/>
+  </testsuite>
+</testsuites>

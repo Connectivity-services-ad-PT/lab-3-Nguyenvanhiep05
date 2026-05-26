@@ -1,0 +1,9 @@
+﻿
+c:/Users/hp/Desktop/lab-3-Onkilll123/contracts/access-gate.openapi.yaml
+   2:6   warning  info-contact           Info object must have "contact" object.                        info
+  26:9   warning  operation-description  Operation "description" must be present and non-empty string.  paths./health.get
+  156:9  warning  operation-description  Operation "description" must be present and non-empty string.  paths./access-events.get
+  231:9  warning  operation-description  Operation "description" must be present and non-empty string.  paths./cards/{id}.get
+ 279:10  warning  operation-description  Operation "description" must be present and non-empty string.  paths./cards.post
+
+Γ£û 5 problems (0 errors, 5 warnings, 0 infos, 0 hints)

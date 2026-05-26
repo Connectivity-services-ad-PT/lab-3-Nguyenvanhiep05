@@ -1,0 +1,14 @@
+[
+  {
+    "card_id": "CARD-2026-001",
+    "gate_id": "GATE-01",
+    "direction": "in",
+    "timestamp": "2026-05-19T08:30:00Z"
+  },
+  {
+    "card_id": "CARD-2026-002",
+    "gate_id": "GATE-02",
+    "direction": "out",
+    "timestamp": "2026-05-19T17:00:00Z"
+  }
+]

@@ -3,31 +3,35 @@
 ## Thông tin chung
 
 - Lab: FIT4110 Lab 03
-- Ngày:
-- Provider team:
-- Consumer team:
-- Provider service:
-- Consumer service:
+- Ngày: 2026-05-19
+- Provider team: team-core (Core Business — A6)
+- Consumer team: team-gate (Access Gate — A3)
+- Provider service: Core Business
+- Consumer service: Access Gate
 
 ## Contract
 
-- Contract file:
-- Mock base URL:
-- Auth method:
-- Endpoint được test:
+- Contract file: `contracts/core-business.openapi.yaml`
+- Mock base URL: `http://localhost:4011`
+- Auth method: Bearer token
+- Endpoint được test: `POST /policies/evaluate-access`
 
 ## Smoke test
 
 ### Request
 
 ```http
-METHOD /path
-Authorization: Bearer <token>
+POST /policies/evaluate-access
+Authorization: Bearer lab-token
 Content-Type: application/json
 ```
 
 ```json
 {
+  "card_id": "CARD-2026-001",
+  "gate_id": "GATE-01",
+  "direction": "in",
+  "zone_id": "ZONE-A"
 }
 ```
 
@@ -35,23 +39,25 @@ Content-Type: application/json
 
 ```json
 {
+  "allowed": true,
+  "reason": "Card is valid and has access permission"
 }
 ```
 
 ## Kết quả
 
-- [ ] Consumer gọi mock thành công.
-- [ ] Consumer parse được field cần dùng.
-- [ ] Consumer hiểu lỗi 4xx/5xx provider trả về.
-- [ ] Có Newman report hoặc screenshot.
+- [x] Consumer gọi mock thành công.
+- [x] Consumer parse được field cần dùng (`allowed`, `reason`).
+- [x] Consumer hiểu lỗi 4xx/5xx provider trả về.
+- [x] Có Newman report hoặc screenshot.
 
 ## Ghi chú thay đổi hợp đồng
 
 | Nội dung | Trước | Sau | Người đồng ý |
 |---|---|---|---|
-| | | | |
+| Thêm zone_id vào request | Không có | Có (optional) | A3 + A6 |
 
 ## Xác nhận
 
-- Provider representative:
-- Consumer representative:
+- Provider representative: team-core (A6)
+- Consumer representative: team-gate (A3)
