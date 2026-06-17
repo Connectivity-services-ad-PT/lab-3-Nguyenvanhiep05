@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# Loại bỏ bớt strict mode kẹt tiến trình ngầm, chỉ giữ lại set -e
+set -e
 
 CONTRACT_FILE="${1:-contracts/iot-ingestion.openapi.yaml}"
 PORT="${2:-4010}"
 
-echo "Starting Prism mock from ${CONTRACT_FILE} on port ${PORT} in background"
+echo "Starting Prism mock from ${CONTRACT_FILE} on port ${PORT} in background..."
 
-# Thêm dấu & vào cuối lệnh npx để server này chạy ngầm, không chặn tiến trình tiếp theo
-npx prism mock "${CONTRACT_FILE}" -p "${PORT}" --host 0.0.0.0 &
+# Chạy ngầm prism mock và chuyển hướng log (stdout/stderr) vào ngõ cụt để tránh nghẽn terminal của GitHub
+npx prism mock "${CONTRACT_FILE}" -p "${PORT}" --host 0.0.0.0 > /dev/null 2>&1 &
 
-# Chờ 1 giây để đảm bảo tiến trình ngầm được khởi tạo ổn định
+# Cho phép tiến trình nền có 1 giây để tách luồng thành công
 sleep 1
