@@ -1,0 +1,6 @@
+- name: Start Mock Servers
+        run: |
+          ./scripts/start-prism-mock.sh contracts/iot-ingestion.openapi.yaml 4010 &
+          ./scripts/start-prism-mock.sh contracts/access-gate.openapi.yaml 4011 &
+          sleep 5
+          npx wait-on tcp:4010 tcp:4011 --timeout 60000
