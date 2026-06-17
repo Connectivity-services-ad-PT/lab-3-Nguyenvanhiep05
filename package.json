@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "mock:iot": "prism mock contracts/iot-ingestion.openapi.yaml -p 4010",
-        "mock:access": "prism mock contracts/access-gate.openapi.yaml -p 4011"
+        "mock:access": "prism mock contracts/access-gate.openapi.yaml -p 4011",
         "mock:core": "prism mock contracts/core-business.openapi.yaml -p 4013"
     },
     "devDependencies": {
